@@ -10,7 +10,21 @@ body{
 	padding:10px;
 	position: relative;
 }
-#win-loss{
+#dealer-win-loss{
+	position: absolute;
+	top:0;
+	left: 50%;
+	background-color: red;
+	color:white;
+	width: 100px;
+	height: 25px;
+	margin:30px auto;
+	padding-top: 10px;
+	text-align: center;
+	border-radius: 2px;
+	margin: auto;
+}
+#player-win-loss{
 	background-color: red;
 	color:white;
 	width: 100px;
@@ -20,7 +34,6 @@ body{
 	text-align: center;
 	border-radius: 2px;
 }
-
 .card{
 	height:150px;
 	min-width: 100px;
@@ -29,21 +42,18 @@ body{
 	text-align: center;
 	margin: 20px;
 	border-radius: 3px;
-	border:3px dashed black;
+	border:3px dashed black;	
 }
-#player-card-one{	
-	
+#player-card-one{		
 	margin-left: 10%;	
 }
-
 #dealer-card-one{
 	margin-left: 10%;
 }
 button{
 	width:100px;
 	height:25px;
-	margin-left: 20%;
-	
+	margin-left: 20%;	
 }
 #play-buttons{
 	width: 100%;
@@ -55,7 +65,6 @@ button{
 }
 #dealer-total-wrapper{
 	float: left;
-
 	text-align: center;
 	color:white;
 	font-size: 20px;
