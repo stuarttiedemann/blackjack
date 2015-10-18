@@ -47,6 +47,62 @@ body{
 	text-align: center;
 }
 
+#dollars-bet{
+	background-color: red;
+	color:white;
+	width: 125px;
+	height: 25px;
+	margin:30px auto;
+	padding-top: 10px;
+	text-align: center;
+	border-radius: 2px;
+	position: absolute;
+	top:39%;
+	left:23%;
+}
+#dollars-bet-count{
+	float: right;
+	margin-right: 20px;
+	text-align: center;
+}
+
+
+#dealer-dollar{
+	background-color: red;
+	color:white;
+	width: 125px;
+	height: 25px;
+	margin:30px auto;
+	padding-top: 10px;
+	text-align: center;
+	border-radius: 2px;
+	position: absolute;
+	top:39%;
+	left:46%;
+}
+#dealer-dollar-win-count{
+	float: right;
+	margin-right: 20px;
+	text-align: center;
+}
+#player-dollar{
+	background-color: red;
+	color:white;
+	width: 125px;
+	height: 25px;
+	margin:30px auto;
+	padding-top: 10px;
+	text-align: center;
+	border-radius: 2px;
+	position: absolute;
+	top:39%;
+	left:68%;
+}
+#player-dollar-win-count{
+	float: right;
+	margin-right: 20px;
+	text-align: center;
+}
 .card{
 	height:150px;
 	width: 100px;
@@ -59,11 +115,14 @@ body{
 .card.empty{
 	height:150px;
 	width: 100px;
+	background: url("cardback.jpg");
+	background-size: cover;
 	background-color: #ccc;
 	text-align: center;
 	margin: 20px;
 	border-radius: 3px;
 	position: absolute;
+	border: 2px dashed black;
 }
 #player-card-one{	
 	top:50%;
@@ -128,8 +187,14 @@ button:hover{
 	position: absolute;
 	top:83%;
 	left:0%;
-	margin-left: 20%;
-	
+	margin-left: 20%;	
+}
+#place-bets{
+	width: 100%;
+	position: absolute;
+	top:93%;
+	left:0%;
+	margin-left: 10%;	
 }
 #dealer-total-wrapper{
 	position: absolute;
@@ -150,4 +215,9 @@ button:hover{
 	font-size: 1.2em;
 	padding-left: 25px;
 	padding-top:50px;
+}
+#message{
+	background-color: red;
+	color: white;
+	text-align: center;
 }
