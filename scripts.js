@@ -11,6 +11,7 @@ var dollarsWon=0;
 var dealerDollarsWon = 0;
 var playerDollarsWon = 0;
 
+
 function shuffleDeck(){
 	//fill our deck in order(for now) &  creat suit and card #
 	var suit = "";
@@ -39,8 +40,6 @@ function shuffleDeck(){
 	}
 	return(deck);
 }
-
-
 function decrementWager(){
 	if(betIncrementer > 0){
 	betIncrementer--;
@@ -48,29 +47,25 @@ function decrementWager(){
 		alert("You can't place a negative bet!");
 	}
 	document.getElementById("dollars-bet-count").innerHTML=betIncrementer;
-	// console.log(betIncrementer);
 }
 function incrementWager(){
 	betIncrementer++;
 	document.getElementById("dollars-bet-count").innerHTML=betIncrementer;
 	document.getElementById("decrement-bet").disabled = false;
-	// console.log(betIncrementer);
+	//document.getElementById("decrement-bet").style.backgroundColor = "white";
 }
-
 function placeBet(){
 	if(betIncrementer > 0){
 	document.getElementById("decrement-bet").disabled = true;
 	document.getElementById("increment-bet").disabled =true;
 	document.getElementById("draw-button").disabled =false;
-	// document.getElementById("stand-button").disabled =false;
-	// document.getElementById("hit-button").disabled =false;
+	//document.getElementById("draw-button").style.backgroundColor = "white";
 	dollarsWon = betIncrementer;
 	console.log("the dollars won is: "+dollarsWon);
 	}else{
 		alert("You must place a bet greater than $0 before you can play!");
 	}
 }
-
 function calculateTotal(hand, who){
 	var total = 0;
 	for(i=0; i<hand.length; i++){
@@ -79,10 +74,15 @@ function calculateTotal(hand, who){
 			total = total+10;
 		}else{
 		total = total + Number(cardValue);
-	}		
-}
+		}		
+	}
 	var idWhoToGet = who + '-total';
 	document.getElementById(idWhoToGet).innerHTML = total;
+	// if(idWhoToGet ==="dealer-total"){
+	// 	document.getElementById("dealer-total").innerHTML =""
+	// }else if(idWhoToGet === "player-total"){
+	// 	document.getElementById("player-total").innerHTML = total;
+	// }
 	//check for bust
 	if(total > 21){
 		bust(who);
@@ -91,8 +91,7 @@ function calculateTotal(hand, who){
 }
 function placeCard(card, who, slot){
 	var suit = card.slice(-1)[0];
-	var highCard = Number(card.slice(0,-1));
-		
+	var highCard = Number(card.slice(0,-1));	
 		if(suit==="h"){
 				suit=("<img src='hearts.png' height='100px' width='100px' border=0/>")
 					if(highCard===13){
@@ -149,53 +148,7 @@ function placeCard(card, who, slot){
 					}else{
 						card=highCard+suit;
 					}
-			}
-			//highCard=(highCard+suit);
-		
-	// if(highCard===13){
-	// 	if(suit==="h"){
-	// 		suit=("<img src='hearts.png' height='100px' width='100px' border=0/>")
-	// 	}else if(suit==="c"){
-	// 		suit=("<img src='club.png' height='100px' width='100px' border=0/>")
-	// 	}else if(suit==="d"){
-	// 		suit=("<img src='diamond.png' height='100px' width='100px' border=0/>")
-	// 	}else if(suit==="s"){
-	// 		suit=("<img src='spade.png' height='100px' width='100px' border=0/>")
-	// 	}
-	// 	highCard=("K"+ suit);
-	// 	// highCard=("<img src='spade.png' border=0/>")
-	// 	card = highCard;
-	// }else if(highCard===12){
-	// 	if(suit==="h"){
-	// 		suit=("<img src='hearts.png' height='100px' width='100px' border=0/>")
-	// 	}else if(suit==="c"){
-	// 		suit=("<img src='club.png' height='100px' width='100px' border=0/>")
-	// 	}else if(suit==="d"){
-	// 		suit=("<img src='diamond.png' height='100px' width='100px' border=0/>")
-	// 	}else if(suit==="s"){
-	// 		suit=("<img src='spade.png' height='100px' width='100px' border=0/>")
-	// 	}
-	// 	highCard=("K"+ suit);
-	// 	// highCard=("<img src='spade.png' border=0/>")
-	// 	card = highCard;
-	// }else if(highCard===11){
-	// 	if(suit==="h"){
-	// 		suit=("<img src='hearts.png' height='100px' width='100px' border=0/>")
-	// 	}else if(suit==="c"){
-	// 		suit=("<img src='club.png' height='100px' width='100px' border=0/>")
-	// 	}else if(suit==="d"){
-	// 		suit=("<img src='diamond.png' height='100px' width='100px'border=0/>")
-	// 	}else if(suit==="s"){
-	// 		suit=("<img src='spade.png' height='100px' width='100px' border=0/>")
-	// 	}
-	// 	highCard=("K"+ suit);
-	// 	highCard=("<img src='spade.png' border=0/>")
-	// 	card = highCard;
-	// }else{
-	// 	highCard=highCard;
-	// 	card = highCard;
-	// }
-	//card = highCard;
+			}			
 	var currId = who +'-card-'+slot;
 	document.getElementById(currId).className = "card";
 	document.getElementById(currId).innerHTML = card;
@@ -208,12 +161,15 @@ function deal(){
 	placeCard(playerHand[0], 'player', 'one');
 	placeCard(dealerHand[0], 'dealer', 'one');
 	placeCard(playerHand[1], 'player', 'two');
-	placeCard(dealerHand[1], 'dealer', 'two');
+	//placeCard(dealerHand[1], 'dealer', 'two');
 	calculateTotal(playerHand, 'player');
 	calculateTotal(dealerHand, 'dealer');
 	document.getElementById("hit-button").disabled=false;
+	//document.getElementById("hit-button").style.backgroundColor = "white";
 	document.getElementById("stand-button").disabled=false;
+	//document.getElementById("stand-button").style.backgroundColor = "white";
 	document.getElementById("place-bet").disabled=true;
+	//document.getElementById("place-bet").style.backgroundColor = "white";
 }
 function hit(){
 	var slot;
@@ -237,13 +193,20 @@ function reset(){
 	betIncrementer = 0;
 	dollarsWon = 0;
 	document.getElementById("decrement-bet").disabled = false;
+	//document.getElementById("decrement-bet").style.backgroundColor = "white";
 	document.getElementById("increment-bet").disabled = false;
-	// document.getElementById("hit-button").disabled=false;
+	//document.getElementById("increment-bet").style.backgroundColor = "white";
 	document.getElementById("place-bet").disabled=false;	
+	//document.getElementById("place-bet").style.backgroundColor = "white";
 	document.getElementById("message").innerHTML = " ";
 	document.getElementById("dollars-bet-count").innerHTML="0";
 	document.getElementById("dealer-total").innerHTML="0";
 	document.getElementById("player-total").innerHTML="0";
+	//document.getElementById("decrement-bet").style.backgroundColor = "white";
+
+	// document.getElementById("decrement-bet").style.backgroundColor = "white";
+	// document.getElementById("decrement-bet").style.backgroundColor = "white";
+	// document.getElementById("decrement-bet").style.backgroundColor = "white";
 
 	var cards = document.getElementsByClassName("card");
 	for(i=0; i<cards.length; i++){
@@ -251,8 +214,9 @@ function reset(){
 		cards[i].className = "card empty";
 	}
 }
-
 function stand(){
+	placeCard(dealerHand[1], 'dealer', 'two');
+
 	var dealerHas = Number(document.getElementById('dealer-total').innerHTML);
 	var slot;
 	while(dealerHas < 17){

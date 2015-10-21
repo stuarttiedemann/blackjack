@@ -178,10 +178,11 @@ button{
 	height:25px;
 	margin-left:9%;
 	border-radius: 2px;	
+	
 }
-button:hover{
+/*button:hover{
 	background-color: gray;
-}
+}*/
 #play-buttons{
 	width: 100%;
 	position: absolute;
