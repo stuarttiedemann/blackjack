@@ -46,20 +46,20 @@ function decrementWager(){
 	}else{
 		alert("You can't place a negative bet!");
 	}
-	document.getElementById("dollars-bet-count").innerHTML=betIncrementer;
+	$("#dollars-bet-count").html(betIncrementer);
 }
 function incrementWager(){
 	betIncrementer++;
-	document.getElementById("dollars-bet-count").innerHTML=betIncrementer;
-	document.getElementById("decrement-bet").disabled = false;
-	//document.getElementById("decrement-bet").style.backgroundColor = "white";
+	$("#dollars-bet-count").html(betIncrementer);
+	$("#decrement-bet").prop('disabled',false);
+	
 }
 function placeBet(){
 	if(betIncrementer > 0){
-	document.getElementById("decrement-bet").disabled = true;
-	document.getElementById("increment-bet").disabled =true;
-	document.getElementById("draw-button").disabled =false;
-	//document.getElementById("draw-button").style.backgroundColor = "white";
+	$("#decrement-bet").prop('disabled', true);
+	$("#increment-bet").prop('disabled', true);
+	$("#draw-button").prop('disabled',false);
+	
 	dollarsWon = betIncrementer;
 	console.log("the dollars won is: "+dollarsWon);
 	}else{
@@ -77,12 +77,8 @@ function calculateTotal(hand, who){
 		}		
 	}
 	var idWhoToGet = who + '-total';
-	document.getElementById(idWhoToGet).innerHTML = total;
-	// if(idWhoToGet ==="dealer-total"){
-	// 	document.getElementById("dealer-total").innerHTML =""
-	// }else if(idWhoToGet === "player-total"){
-	// 	document.getElementById("player-total").innerHTML = total;
-	// }
+	$("#"+idWhoToGet).html(total);
+	
 	//check for bust
 	if(total > 21){
 		bust(who);
@@ -149,9 +145,9 @@ function placeCard(card, who, slot){
 						card=highCard+suit;
 					}
 			}			
-	var currId = who +'-card-'+slot;
-	document.getElementById(currId).className = "card";
-	document.getElementById(currId).innerHTML = card;
+	var currId = '#'+ who +'-card-'+slot;
+	$(currId).removeClass('empty');
+	$(currId).html(card);
 }
 function deal(){
 	deck = shuffleDeck();
@@ -161,15 +157,15 @@ function deal(){
 	placeCard(playerHand[0], 'player', 'one');
 	placeCard(dealerHand[0], 'dealer', 'one');
 	placeCard(playerHand[1], 'player', 'two');
-	//placeCard(dealerHand[1], 'dealer', 'two');
+	
 	calculateTotal(playerHand, 'player');
 	calculateTotal(dealerHand, 'dealer');
-	document.getElementById("hit-button").disabled=false;
-	//document.getElementById("hit-button").style.backgroundColor = "white";
-	document.getElementById("stand-button").disabled=false;
-	//document.getElementById("stand-button").style.backgroundColor = "white";
-	document.getElementById("place-bet").disabled=true;
-	//document.getElementById("place-bet").style.backgroundColor = "white";
+	$("#hit-button").prop('disabled',false);
+	
+	$("#stand-button").prop('disabled',false);
+	
+	$("#place-bet").prop('disabled',true);
+	
 }
 function hit(){
 	var slot;
@@ -192,23 +188,15 @@ function reset(){
 	dealerHand=[];
 	betIncrementer = 0;
 	dollarsWon = 0;
-	document.getElementById("decrement-bet").disabled = false;
-	//document.getElementById("decrement-bet").style.backgroundColor = "white";
-	document.getElementById("increment-bet").disabled = false;
-	//document.getElementById("increment-bet").style.backgroundColor = "white";
-	document.getElementById("place-bet").disabled=false;	
-	//document.getElementById("place-bet").style.backgroundColor = "white";
-	document.getElementById("message").innerHTML = " ";
-	document.getElementById("dollars-bet-count").innerHTML="0";
-	document.getElementById("dealer-total").innerHTML="0";
-	document.getElementById("player-total").innerHTML="0";
-	//document.getElementById("decrement-bet").style.backgroundColor = "white";
-
-	// document.getElementById("decrement-bet").style.backgroundColor = "white";
-	// document.getElementById("decrement-bet").style.backgroundColor = "white";
-	// document.getElementById("decrement-bet").style.backgroundColor = "white";
-
-	var cards = document.getElementsByClassName("card");
+	$("#decrement-bet").prop('disabled',false);	
+	$("#increment-bet").prop('disabled',false);	
+	$("#place-bet").prop('disabled',false);		
+	$("#message").html(" ");
+	$("#dollars-bet-count").html("0");
+	$("#dealer-total").html("0");
+	$("#player-total").html("0");
+	
+	var cards = $(".card");
 	for(i=0; i<cards.length; i++){
 		cards[i].innerHTML = "-";
 		cards[i].className = "card empty";
@@ -216,8 +204,8 @@ function reset(){
 }
 function stand(){
 	placeCard(dealerHand[1], 'dealer', 'two');
-
-	var dealerHas = Number(document.getElementById('dealer-total').innerHTML);
+	var dealerHas = $('#dealer-total').html();
+	console.log("var dealerHas "+dealerHas);
 	var slot;
 	while(dealerHas < 17){
 		//keep hitting ... keep drawing ... get more cards
@@ -232,48 +220,48 @@ function stand(){
 		dealerTotalCards++;
 	}
 	//WE KNOW the dealer has more than 17
-	checkWin(Number(document.getElementById('dealer-total').innerHTML),Number(document.getElementById('player-total').innerHTML));
+	checkWin(Number($('#dealer-total').html),Number($('#player-total').html));
 }
 function checkWin(dealerScore,playerScore){
 	if((dealerScore>=playerScore) && (dealerScore< 22) && (playerScore<22)){
 		dealerWins++;
 		dealerDollarsWon = dollarsWon+dealerDollarsWon;
-		document.getElementById("message").innerHTML = "Dealer Wins!";	
-		document.getElementById("dealer-win-count").innerHTML = dealerWins;
-		document.getElementById("dealer-dollar-win-count").innerHTML = dealerDollarsWon;
-		document.getElementById("draw-button").disabled = true;
-		document.getElementById("hit-button").disabled=true;
-		document.getElementById("stand-button").disabled=true;
+		$("#message").html("Dealer Wins!");	
+		$("#dealer-win-count").html(dealerWins);
+		$("#dealer-dollar-win-count").html(dealerDollarsWon);
+		$("#draw-button").prop('disabled',true);
+		$("#hit-button").prop('disabled',true);
+		$("#stand-button").prop('disabled',true);
 	}else if((playerScore>dealerScore) && (dealerScore<22) && (playerScore<22)){
 		playerDollarsWon = dollarsWon+playerDollarsWon;
 		playerWins++;
-		document.getElementById("message").innerHTML = "Player Wins!";	
-		document.getElementById("player-win-count").innerHTML = playerWins;	
-		document.getElementById("player-dollar-win-count").innerHTML = playerDollarsWon;
-		document.getElementById("draw-button").disabled = true;
-		document.getElementById("hit-button").disabled=true;
-		document.getElementById("stand-button").disabled=true;
+		$("#message").html("Player Wins!");	
+		$("#player-win-count").html(playerWins);	
+		$("#player-dollar-win-count").html(playerDollarsWon);
+		$("#draw-button").prop('disabled',true);
+		$("#hit-button").prop('disabled',true);
+		$("#stand-button").prop('disabled',true);
 	}
 }
 function bust(who){
 	if(who==="player"){
 		dealerDollarsWon = dollarsWon+dealerDollarsWon;
 		dealerWins++;
-		document.getElementById("message").innerHTML = "You have busted! The Dealer Wins";	
-		document.getElementById("dealer-win-count").innerHTML = dealerWins;
-		document.getElementById("dealer-dollar-win-count").innerHTML = dealerDollarsWon;
-		document.getElementById("draw-button").disabled = true;
-		document.getElementById("hit-button").disabled=true;
-		document.getElementById("stand-button").disabled=true;
+		$("#message").html("You have busted! The Dealer Wins");	
+		$("#dealer-win-count").html(dealerWins);
+		$("#dealer-dollar-win-count").html(dealerDollarsWon);
+		$("#draw-button").prop('disabled',true);
+		$("#hit-button").prop('disabled',true);
+		$("#stand-button").prop('disabled',true);
 	}else{
 		playerWins++;
 		playerDollarsWon = dollarsWon+playerDollarsWon;
-		document.getElementById("message").innerHTML = "Dealer busted! Player Wins!";	
-		document.getElementById("player-win-count").innerHTML = playerWins;	
-		document.getElementById("player-dollar-win-count").innerHTML = playerDollarsWon;
-		document.getElementById("draw-button").disabled = true;
-		document.getElementById("stand-button").disabled=true;	
-		document.getElementById("hit-button").disabled=true;
+		$("#message").html("Dealer busted! Player Wins!");	
+		$("#player-win-count").html(playerWins);	
+		$("#player-dollar-win-count").html(playerDollarsWon);
+		$("#draw-button").prop('disabled',true);
+		$("#stand-button").prop('disabled',true);	
+		$("#hit-button").prop('disabled',true);
 	}
 }	
 
